@@ -60,6 +60,8 @@ def get_deck_from_url(url: str) -> Deck:
     match(apex_domain):
         case "mtggoldfish":
             return get_deck_from_url_goldfish(url)
+        case "mtgdecks":
+            return get_deck_from_url_mtg_decks(url)
         case _:
             raise Exception("Invalid decklist URL.")
 
@@ -95,3 +97,8 @@ def get_deck_from_url_goldfish(url: str) -> Deck:
                 print("MtgGoldfish: unknown decklist section found - \"" + lines[0] + "\". Skipping...")
 
     return deck
+
+def get_deck_from_url_mtg_decks(url: str) -> Deck:
+    response = requests.get(url)
+    data = response.text
+    print(data)
