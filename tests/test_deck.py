@@ -3,6 +3,7 @@ from collections import Counter
 from datetime import datetime
 
 import pytest
+
 from scraptrawler.deck import Deck, DecklistFormatter, Format, InThe
 
 # region Fixtures

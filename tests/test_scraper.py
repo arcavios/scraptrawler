@@ -3,13 +3,14 @@ from datetime import datetime
 from typing import List
 
 import pytest
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
 from scraptrawler.deck import Deck, Format
 from scraptrawler.scraper.base import BaseScraper, LoadTime
 from scraptrawler.scraper.melee import MeleeScraper, MeleeXPath
 from scraptrawler.scraper.mtgo import MtgoScraper, MtgoXPath
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
 
 # region Fixtures
 

@@ -22,13 +22,15 @@ profile = "black"
 src_paths = ["src", "tests"]
 
 [tool.poetry.dependencies]
-python = ">=3.10, <3.12"
+python = ">=3.11, <4"
 requests = "^2.31.0"
 logging = "^0.4.9.6"
 ftfy = "^6.1.1"
 selenium = "^4.11.2"
 webdriver-manager = "^4.0.0"
 strenum = "^0.4.15"
+scooze = "^1.0.6"
+bs4 = "^0.0.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"
