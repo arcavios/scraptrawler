@@ -78,7 +78,6 @@ def get_deck_from_url_goldfish(url: str) -> Deck:
     soup = BeautifulSoup(html, 'html.parser')
 
     copy_paste_box_text = soup.find('textarea', {'class': 'copy-paste-box'}).text.strip()
-    print(copy_paste_box_text)
 
     deck = Deck()
     deck_parts = copy_paste_box_text.split("\n\n")
@@ -93,6 +92,6 @@ def get_deck_from_url_goldfish(url: str) -> Deck:
                 deck.side = side
             case _:
                 # TODO: logging
-                print("MtgGoldfish: unknown decklist section found - " + lines[0])
+                print("MtgGoldfish: unknown decklist section found - \"" + lines[0] + "\". Skipping...")
 
     return deck
