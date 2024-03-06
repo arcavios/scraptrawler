@@ -12,14 +12,14 @@ def goldfish_url() -> str:
 
 @pytest.fixture
 def mtg_decks_url() -> str:
-    return "https://mtgdecks.net/Pioneer/boros-heroic-decklist-by-ibroadband-1572009#arena"
+    return "https://mtgdecks.net/Pioneer/boros-heroic-decklist-by-ibroadband-1572009/txt"
 
 
 # endregion
 
 
 # TODO: should probably parametrize this?
-def test_get_deck_from_url_goldfish(goldfish_url, mtg_decks_url, deck_pioneer_heroic):
+def test_get_deck_from_url(goldfish_url, mtg_decks_url, deck_pioneer_heroic):
     goldfish_deck = get_deck_from_url(goldfish_url)
     assert goldfish_deck.decklist_equals(deck_pioneer_heroic)
 
