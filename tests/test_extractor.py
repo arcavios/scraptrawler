@@ -21,6 +21,7 @@ def mtg_decks_url() -> str:
 
 
 # TODO: should probably parametrize this?
+@pytest.mark('web')
 def test_get_deck_from_url(goldfish_url, mtg_decks_url, deck_pioneer_heroic):
     goldfish_deck = get_deck_from_url(goldfish_url)
     assert goldfish_deck.decklist_equals(deck_pioneer_heroic)

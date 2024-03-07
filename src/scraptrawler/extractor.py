@@ -15,7 +15,8 @@ def get_html_document(url: str) -> str:
     Extract HTML document form the given URL.
     """
 
-    response = requests.get(url)
+    headers = {"User-Agent": Constants.USER_AGENT}
+    response = requests.get(url=url, headers=headers)
 
     return response.text
 
@@ -72,6 +73,13 @@ def get_deck_from_url(url: str) -> Deck:
 
 
 def get_deck_from_url_goldfish(url: str) -> Deck:
+    """
+    TODO: docstring
+
+    main header: "Deck"
+    side header: "Sideboard"
+    """
+
     deck_id = re.findall("\d{5,10}", url)
 
     # raise an exception if no deck ID is found in the URL
@@ -105,7 +113,26 @@ def get_deck_from_url_goldfish(url: str) -> Deck:
 
 
 def get_deck_from_url_mtg_decks(url: str) -> Deck:
-    headers = {"User-Agent": Constants.USER_AGENT}
-    response = requests.get(url=url, headers=headers)
-    data = response.text
-    print(data)
+    """
+    TODO: docstring
+
+    main no header
+    side header: "Sideboard"
+    """
+
+    mtg_decks_target_url = url + "/txt" if not url.endswith("/txt") else url
+    decklist = get_html_document(mtg_decks_target_url) # plaintext download
+
+    deck = Deck()
+    deck_parts = decklist.split("\n\n")
+    for part in deck_parts:
+        lines = part.split("\n")
+        match lines[0]:
+            case "Sideboard":
+                side = deckpart_from_lines(lines[1:])
+                deck.side = side
+            case _:
+                main = deckpart_from_lines(lines)
+                deck.main = main
+
+    return deck
