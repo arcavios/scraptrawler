@@ -41,7 +41,7 @@ url = "https://api.packagr.app/aGcEPILd"
 priority = "explicit"
 
 [tool.pytest.ini_options]
-# addopts = "-m 'not slow'"
+addopts = "-m 'not slow'"
 markers = [
     "web: require access to the internet",
     "slow: expected to be slow",
