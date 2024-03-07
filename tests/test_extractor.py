@@ -1,7 +1,8 @@
 import pytest
-from scraptrawler.extractor import get_deck_from_url
 from scooze.card import Card
 from scooze.deck import Deck
+
+from scraptrawler.extractor import get_deck_from_url
 
 # region Fixtures
 
@@ -9,6 +10,7 @@ from scooze.deck import Deck
 @pytest.fixture
 def goldfish_url() -> str:
     return "https://www.mtggoldfish.com/deck/5445907#paper"
+
 
 @pytest.fixture
 def mtg_decks_url() -> str:

@@ -1,3 +1,4 @@
+import importlib.metadata
 import re
 from urllib.parse import urlparse
 
@@ -6,8 +7,8 @@ from bs4 import BeautifulSoup
 from scooze.card import Card
 from scooze.deck import Deck, DeckPart
 
-
 # region Helper Functions
+
 
 def get_html_document(url: str) -> str:
     """
@@ -18,12 +19,14 @@ def get_html_document(url: str) -> str:
 
     return response.text
 
+
 def get_apex_from_netloc(netloc: str) -> str:
     """
     Returns the apex domain from a given ParseResult.netloc
     """
 
     return netloc.split(".")[-2]
+
 
 def deckpart_from_lines(lines: str) -> DeckPart:
     """
@@ -41,7 +44,9 @@ def deckpart_from_lines(lines: str) -> DeckPart:
 
     return part
 
+
 # endregion
+
 
 def get_deck_from_url(url: str) -> Deck:
     """
@@ -57,7 +62,7 @@ def get_deck_from_url(url: str) -> Deck:
     parse_result = urlparse(url)
     apex_domain = get_apex_from_netloc(parse_result.netloc)
 
-    match(apex_domain):
+    match (apex_domain):
         case "mtggoldfish":
             return get_deck_from_url_goldfish(url)
         case "mtgdecks":
@@ -77,15 +82,15 @@ def get_deck_from_url_goldfish(url: str) -> Deck:
 
     goldfish_target_url = f"https://www.mtggoldfish.com/deck/arena_download/{deck_id}"
     html = get_html_document(goldfish_target_url)
-    soup = BeautifulSoup(html, 'html.parser')
+    soup = BeautifulSoup(html, "html.parser")
 
-    copy_paste_box_text = soup.find('textarea', {'class': 'copy-paste-box'}).text.strip()
+    copy_paste_box_text = soup.find("textarea", {"class": "copy-paste-box"}).text.strip()
 
     deck = Deck()
     deck_parts = copy_paste_box_text.split("\n\n")
     for part in deck_parts:
         lines = part.split("\n")
-        match(lines[0]):
+        match (lines[0]):
             case "Deck":
                 main = deckpart_from_lines(lines[1:])
                 deck.main = main
@@ -94,11 +99,13 @@ def get_deck_from_url_goldfish(url: str) -> Deck:
                 deck.side = side
             case _:
                 # TODO: logging
-                print("MtgGoldfish: unknown decklist section found - \"" + lines[0] + "\". Skipping...")
+                print('MtgGoldfish: unknown decklist section found - "' + lines[0] + '". Skipping...')
 
     return deck
 
+
 def get_deck_from_url_mtg_decks(url: str) -> Deck:
-    response = requests.get(url)
+    headers = {"User-Agent": f"scraptrawler {importlib.metadata.version('scraptrawler')}"}
+    response = requests.get(url=url, headers=headers)
     data = response.text
     print(data)
