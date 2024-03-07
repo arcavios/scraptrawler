@@ -12,7 +12,7 @@ from scooze.deck import Deck, DeckPart
 
 def get_html_document(url: str) -> str:
     """
-    Extract HTML document form the given URL.
+    GET request for an HTML document from the given URL.
     """
 
     headers = {"User-Agent": Constants.USER_AGENT}
