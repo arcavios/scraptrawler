@@ -2,6 +2,7 @@ import logging
 import os.path
 from enum import Enum, auto
 from sys import stdout
+import importlib.metadata
 
 from strenum import StrEnum
 
@@ -10,6 +11,8 @@ from strenum import StrEnum
 class Constants:
     MELEE_DATE_FORMAT = "%m/%d/%Y"
     MTGO_DATE_FORMAT = "%B %d, %Y"
+    VERSION = importlib.metadata.version('scraptrawler')
+    USER_AGENT = f"scraptrawler {VERSION}"
 
 
 def get_logger(

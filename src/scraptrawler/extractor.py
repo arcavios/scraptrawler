@@ -1,4 +1,4 @@
-import importlib.metadata
+from scraptrawler.utils import Constants
 import re
 from urllib.parse import urlparse
 
@@ -105,7 +105,7 @@ def get_deck_from_url_goldfish(url: str) -> Deck:
 
 
 def get_deck_from_url_mtg_decks(url: str) -> Deck:
-    headers = {"User-Agent": f"scraptrawler {importlib.metadata.version('scraptrawler')}"}
+    headers = {"User-Agent": Constants.USER_AGENT}
     response = requests.get(url=url, headers=headers)
     data = response.text
     print(data)
