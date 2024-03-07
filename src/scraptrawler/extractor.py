@@ -1,4 +1,3 @@
-from scraptrawler.utils import Constants
 import re
 from urllib.parse import urlparse
 
@@ -6,6 +5,8 @@ import requests
 from bs4 import BeautifulSoup
 from scooze.card import Card
 from scooze.deck import Deck, DeckPart
+
+from scraptrawler.utils import Constants
 
 # region Helper Functions
 
@@ -121,7 +122,7 @@ def get_deck_from_url_mtg_decks(url: str) -> Deck:
     """
 
     mtg_decks_target_url = url + "/txt" if not url.endswith("/txt") else url
-    decklist = get_html_document(mtg_decks_target_url) # plaintext download
+    decklist = get_html_document(mtg_decks_target_url)  # plaintext download
 
     deck = Deck()
     deck_parts = decklist.split("\n\n")
