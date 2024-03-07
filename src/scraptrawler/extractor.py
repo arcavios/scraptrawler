@@ -99,7 +99,7 @@ def get_deck_from_url_goldfish(url: str) -> Deck:
     deck_parts = copy_paste_box_text.split("\n\n")
     for part in deck_parts:
         lines = part.split("\n")
-        match (lines[0]):
+        match lines[0]:
             case "Deck":
                 main = deckpart_from_lines(lines[1:])
                 deck.main = main
