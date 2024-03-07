@@ -64,7 +64,7 @@ def get_deck_from_url(url: str) -> Deck:
     parse_result = urlparse(url)
     apex_domain = get_apex_from_netloc(parse_result.netloc)
 
-    match (apex_domain):
+    match apex_domain:
         case "mtggoldfish":
             return get_deck_from_url_goldfish(url)
         case "mtgdecks":
