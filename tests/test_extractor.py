@@ -1,7 +1,4 @@
 import pytest
-from scooze.card import Card
-from scooze.deck import Deck
-
 from scraptrawler.extractor import get_deck_from_url
 
 # region Fixtures

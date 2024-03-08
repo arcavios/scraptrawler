@@ -2,6 +2,9 @@ from collections import namedtuple
 from datetime import datetime
 from typing import Counter, List
 
+from scraptrawler.deck import Deck, Format, InThe
+from scraptrawler.scraper.base import BaseScraper, LoadTime
+from scraptrawler.utils import Constants, ExtendedEnum, get_logger
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
@@ -9,10 +12,6 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from strenum import StrEnum
-
-from scraptrawler.deck import Deck, Format, InThe
-from scraptrawler.scraper.base import BaseScraper, LoadTime
-from scraptrawler.utils import Constants, ExtendedEnum, get_logger
 
 
 class MeleeXPath(ExtendedEnum, StrEnum):

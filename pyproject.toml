@@ -1,14 +1,14 @@
 [tool.poetry]
 name = "scraptrawler"
-version = "0.1.0"
+version = "1.0.0"
 description = "Tools for scraping Magic: the Gathering tournaments and decklists."
 authors = [
     "Alex Gimmi <iambroadband@gmail.com>",
     "Ben Horkley <ben.horkley@gmail.com>",
     "Jacob Ginsparg <jacobginsparg@gmail.com>",
 ]
-license = "N/A"
 readme = "README.md"
+packages = [{ include = "scraptrawler", from = "src" }]
 
 [build-system]
 requires = ["poetry-core"]
@@ -19,7 +19,7 @@ line-length = 120
 
 [tool.isort]
 profile = "black"
-src_paths = ["src", "tests"]
+src_paths = ["scraptrawler", "tests"]
 
 [tool.poetry.dependencies]
 python = ">=3.11, <4"
@@ -37,21 +37,6 @@ pytest = "^7.4.0"
 pytest-cov = "^4.1.0"
 coverage = "^7.4.3"
 
-[[tool.poetry.source]]
-name = "packagr"
-url = "https://api.packagr.app/aGcEPILd"
-priority = "explicit"
-
 [tool.pytest.ini_options]
 addopts = "-m 'not slow'"
-markers = [
-    "web: require access to the internet",
-    "slow: expected to be slow",
-    "deck_add_cards: related to Deck.add_card() and Deck.add_cards()",
-    "deck_count: related to Deck.count_X()",
-    "deck_export: related to exporting a Deck as text or some other format",
-    "deck_validation: related to causing ValidationErrors from Pydantic",
-    "base_scraper: related to the BaseScraper class",
-    "melee_scraper: related to the MeleeScraper class",
-    "mtgo_scraper: related to the MtgoScraper class",
-]
+markers = ["web: require access to the internet", "slow: expected to be slow,"]

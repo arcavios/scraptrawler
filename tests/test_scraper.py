@@ -3,14 +3,10 @@ from datetime import datetime
 from typing import List
 
 import pytest
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-
 from scraptrawler.deck import Deck, Format
-from scraptrawler.scraper.base import BaseScraper, LoadTime
-from scraptrawler.scraper.melee import MeleeScraper, MeleeXPath
-from scraptrawler.scraper.mtgo import MtgoScraper, MtgoXPath
+from scraptrawler.scraper.base import BaseScraper
+from scraptrawler.scraper.melee import MeleeScraper
+from scraptrawler.scraper.mtgo import MtgoScraper
 
 # region Fixtures
 
@@ -146,7 +142,6 @@ def mtgo_tournaments() -> List[str]:
 
 @pytest.mark.web
 @pytest.mark.slow
-@pytest.mark.base_scraper
 def test_base_scraper_load():
     url = "https://github.com/iambroadband/"
     scraper = BaseScraper()
@@ -156,7 +151,6 @@ def test_base_scraper_load():
 
 @pytest.mark.web
 @pytest.mark.slow
-@pytest.mark.melee_scraper
 def test_melee_scraper_wait_for_standings(melee_scraper, melee_tournament_large):
     melee_scraper._load(url=melee_tournament_large)
     deck_urls = melee_scraper._MeleeScraper__get_deck_urls_from_pagination()
@@ -167,7 +161,6 @@ def test_melee_scraper_wait_for_standings(melee_scraper, melee_tournament_large)
 
 @pytest.mark.web
 @pytest.mark.slow
-@pytest.mark.melee_scraper
 def test_melee_scraper_get_deck_from_url(melee_scraper, melee_deck_url, melee_test_deck):
     deck = melee_scraper.get_deck_from_url(url=melee_deck_url)
     print(f"DECK: {deck.to_json()}")

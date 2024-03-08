@@ -5,7 +5,6 @@ import requests
 from bs4 import BeautifulSoup
 from scooze.card import Card
 from scooze.deck import Deck, DeckPart
-
 from scraptrawler.utils import Constants
 
 # region Helper Functions
