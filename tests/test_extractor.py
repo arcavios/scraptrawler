@@ -22,12 +22,17 @@ def mtg_top8_url() -> str:
     return "https://www.mtgtop8.com/event?e=41739&d=509967&f=PI"
 
 
+@pytest.fixture
+def tappedout_url() -> str:
+    return "https://tappedout.net/mtg-decks/boros-heroic-pioneer-preliminary-feb-27-2023-2"
+
+
 # endregion
 
 
 # TODO: should probably parametrize this?
 @pytest.mark.web
-def test_get_deck_from_url(goldfish_url, mtg_decks_url, mtg_top8_url, deck_pioneer_heroic):
+def test_get_deck_from_url(goldfish_url, mtg_decks_url, mtg_top8_url, tappedout_url, deck_pioneer_heroic):
     goldfish_deck = get_deck_from_url(goldfish_url)
     assert goldfish_deck.decklist_equals(deck_pioneer_heroic)
 
@@ -36,3 +41,6 @@ def test_get_deck_from_url(goldfish_url, mtg_decks_url, mtg_top8_url, deck_pione
 
     mtg_top8_deck = get_deck_from_url(mtg_top8_url)
     assert mtg_top8_deck.decklist_equals(deck_pioneer_heroic)
+
+    tappedout_deck = get_deck_from_url(tappedout_url)
+    assert tappedout_deck.decklist_equals(deck_pioneer_heroic)
