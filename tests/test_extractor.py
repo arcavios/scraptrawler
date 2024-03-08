@@ -20,6 +20,11 @@ def mtg_top8_url() -> str:
 
 
 @pytest.fixture
+def scryfall_url() -> str:
+    return "https://scryfall.com/@iBroadband/decks/ceaf6b1d-97e5-47fb-9a7d-c7f116554ad2"
+
+
+@pytest.fixture
 def tappedout_url() -> str:
     return "https://tappedout.net/mtg-decks/boros-heroic-pioneer-preliminary-feb-27-2023-2"
 
@@ -29,7 +34,7 @@ def tappedout_url() -> str:
 
 # TODO: should probably parametrize this?
 @pytest.mark.web
-def test_get_deck_from_url(goldfish_url, mtg_decks_url, mtg_top8_url, tappedout_url, deck_pioneer_heroic):
+def test_get_deck_from_url(goldfish_url, mtg_decks_url, mtg_top8_url, scryfall_url, tappedout_url, deck_pioneer_heroic):
     goldfish_deck = get_deck_from_url(goldfish_url)
     assert goldfish_deck.decklist_equals(deck_pioneer_heroic)
 
@@ -38,6 +43,9 @@ def test_get_deck_from_url(goldfish_url, mtg_decks_url, mtg_top8_url, tappedout_
 
     mtg_top8_deck = get_deck_from_url(mtg_top8_url)
     assert mtg_top8_deck.decklist_equals(deck_pioneer_heroic)
+
+    scryfall_deck = get_deck_from_url(scryfall_url)
+    assert scryfall_deck.decklist_equals(deck_pioneer_heroic)
 
     tappedout_deck = get_deck_from_url(tappedout_url)
     assert tappedout_deck.decklist_equals(deck_pioneer_heroic)

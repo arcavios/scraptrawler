@@ -70,6 +70,8 @@ def get_deck_from_url(url: str) -> Deck:
             return get_deck_from_url_mtg_decks(url)
         case "mtgtop8":
             return get_deck_from_url_mtg_top8(url)
+        case "scryfall":
+            return get_deck_from_url_scryfall(url)
         case "tappedout":
             return get_deck_from_url_tappedout(url)
         case _:
@@ -128,16 +130,15 @@ def get_deck_from_url_mtg_decks(url: str) -> Deck:
     decklist = get_html_document(mtg_decks_target_url)  # plaintext download
 
     deck = Deck()
-    deck_parts = decklist.split("\n\n")
-    for part in deck_parts:
-        lines = part.split("\n")
-        match lines[0]:
-            case "Sideboard":
-                side = deckpart_from_lines(lines[1:])
-                deck.side = side
-            case _:
-                main = deckpart_from_lines(lines)
-                deck.main = main
+    deck_parts = decklist.split("\n\nSideboard\n")
+
+    main_lines = deck_parts[0].strip().split("\n")
+    side_lines = deck_parts[1].strip().split("\n")
+
+    main = deckpart_from_lines(main_lines)
+    deck.main = main
+    side = deckpart_from_lines(side_lines)
+    deck.side = side
 
     return deck
 
@@ -175,6 +176,39 @@ def get_deck_from_url_mtg_top8(url: str) -> Deck:
     return deck
 
 
+def get_deck_from_url_scryfall(url: str) -> Deck:
+    """
+    TODO: docstring
+
+    main prefix:
+    side prefix:
+    """
+
+    deck_id = re.findall(Constants.UUID_PATTERN, url)
+
+    # raise an exception if no deck ID is found in the URL
+    if len(deck_id) > 0:
+        deck_id = deck_id[0]
+    else:
+        raise Exception("Scryfall: no deck ID found.")
+
+    scryfall_target_url = f"https://api.scryfall.com/decks/{deck_id}/export/text"
+    decklist = get_html_document(scryfall_target_url)  # plaintext download
+
+    deck = Deck()
+    deck_parts = decklist.strip().split("\r\n\r\n// Sideboard\r\n")
+
+    main_lines = deck_parts[0].strip().split("\r\n")
+    side_lines = deck_parts[1].strip().split("\r\n")
+
+    main = deckpart_from_lines(main_lines)
+    deck.main = main
+    side = deckpart_from_lines(side_lines)
+    deck.side = side
+
+    return deck
+
+
 def get_deck_from_url_tappedout(url: str) -> Deck:
     """
     TODO: docstring
@@ -187,15 +221,14 @@ def get_deck_from_url_tappedout(url: str) -> Deck:
     decklist = get_html_document(tappedout_target_url)  # plaintext download
 
     deck = Deck()
-    deck_parts = decklist.strip().split("\n\n")
-    for part in deck_parts:
-        lines = part.split("\n")
-        match lines[0]:
-            case "Sideboard:":
-                side = deckpart_from_lines(lines[1:])
-                deck.side = side
-            case _:
-                main = deckpart_from_lines(lines)
-                deck.main = main
+    deck_parts = decklist.split("\n\nSideboard:\n")
+
+    main_lines = deck_parts[0].strip().split("\n")
+    side_lines = deck_parts[1].strip().split("\n")
+
+    main = deckpart_from_lines(main_lines)
+    deck.main = main
+    side = deckpart_from_lines(side_lines)
+    deck.side = side
 
     return deck
