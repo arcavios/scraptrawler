@@ -71,6 +71,8 @@ def get_deck_from_url(url: str) -> Deck:
             return get_deck_from_url_mtg_decks(url)
         case "mtgtop8":
             return get_deck_from_url_mtg_top8(url)
+        case "tappedout":
+            return get_deck_from_url_tappedout(url)
         case _:
             raise Exception("Invalid decklist URL.")
 
@@ -145,8 +147,8 @@ def get_deck_from_url_mtg_top8(url: str) -> Deck:
     """
     TODO: docstring
 
-    side prefix: Sideboard
     main prefix: none
+    side prefix: Sideboard
     """
 
     deck_id = re.findall("d=\d{5,10}", url)  # NOTE: it seems like all deck IDs are 6 digits
@@ -170,5 +172,33 @@ def get_deck_from_url_mtg_top8(url: str) -> Deck:
     deck.main = main
     side = deckpart_from_lines(side_lines)
     deck.side = side
+
+    return deck
+
+
+def get_deck_from_url_tappedout(url: str) -> Deck:
+    """
+    TODO: docstring
+
+    main prefix: none
+    side prefix: Sideboard
+    """
+
+    # https://tappedout.net/mtg-decks/boros-heroic-pioneer-preliminary-feb-27-2023-2/?fmt=txt
+
+    tappedout_target_url = url + "?fmt=txt" if "?fmt=txt" not in url else url
+    decklist = get_html_document(tappedout_target_url)  # plaintext download
+
+    deck = Deck()
+    deck_parts = decklist.strip().split("\n\n")
+    for part in deck_parts:
+        lines = part.split("\n")
+        match lines[0]:
+            case "Sideboard:":
+                side = deckpart_from_lines(lines[1:])
+                deck.side = side
+            case _:
+                main = deckpart_from_lines(lines)
+                deck.main = main
 
     return deck
