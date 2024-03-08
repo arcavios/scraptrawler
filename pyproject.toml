@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "scraptrawler"
-version = "1.0.0"
+version = "1.0.1"
 description = "Tools for scraping Magic: the Gathering tournaments and decklists."
 authors = [
     "Alex Gimmi <iambroadband@gmail.com>",
