@@ -13,6 +13,7 @@ class Constants:
     MTGO_DATE_FORMAT = "%B %d, %Y"
     VERSION = importlib.metadata.version("scraptrawler")
     USER_AGENT = f"scraptrawler {VERSION}"
+    UUID_PATTERN = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
 
 
 def get_logger(
