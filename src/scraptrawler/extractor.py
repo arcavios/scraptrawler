@@ -140,6 +140,7 @@ def get_deck_from_url_mtg_decks(url: str) -> Deck:
 
     return deck
 
+
 def get_deck_from_url_mtg_top8(url: str) -> Deck:
     """
     TODO: docstring
@@ -148,7 +149,7 @@ def get_deck_from_url_mtg_top8(url: str) -> Deck:
     main prefix: none
     """
 
-    deck_id = re.findall("d=\d{5,10}", url) # NOTE: it seems like all deck IDs are 6 digits
+    deck_id = re.findall("d=\d{5,10}", url)  # NOTE: it seems like all deck IDs are 6 digits
 
     # raise an exception if no deck ID is found in the URL
     if len(deck_id) > 0:
@@ -157,7 +158,7 @@ def get_deck_from_url_mtg_top8(url: str) -> Deck:
         raise Exception("MtgTop8: no deck ID found.")
 
     mtg_top8_target_url = f"https://www.mtgtop8.com/mtgo?{deck_id}"
-    decklist = get_html_document(mtg_top8_target_url) # plaintext download
+    decklist = get_html_document(mtg_top8_target_url)  # plaintext download
 
     deck = Deck()
     deck_parts = decklist.split("Sideboard\r\n")
