@@ -3,6 +3,8 @@ from enum import IntEnum
 from typing import Counter, List
 
 import requests
+from scraptrawler.deck import Deck, InThe
+from scraptrawler.utils import ExtendedEnum, get_logger
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -11,9 +13,6 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
-
-from scraptrawler.deck import Deck, InThe
-from scraptrawler.utils import ExtendedEnum, get_logger
 
 
 class LoadTime(ExtendedEnum, IntEnum):

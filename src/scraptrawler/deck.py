@@ -6,9 +6,8 @@ from enum import auto
 from typing import Dict
 
 from ftfy import fix_encoding
-from strenum import StrEnum
-
 from scraptrawler.utils import DecklistFormatter, ExtendedEnum, get_logger
+from strenum import StrEnum
 
 
 class InThe(ExtendedEnum, StrEnum):

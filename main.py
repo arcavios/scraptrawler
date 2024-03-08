@@ -5,7 +5,6 @@ from collections import Counter, namedtuple
 from typing import Dict, List, Set
 
 import requests
-
 from scraptrawler.deck import Deck
 from scraptrawler.scraper.melee import MeleeScraper
 from scraptrawler.scraper.mtgo import MtgoScraper
