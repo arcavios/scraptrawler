@@ -181,10 +181,8 @@ def get_deck_from_url_tappedout(url: str) -> Deck:
     TODO: docstring
 
     main prefix: none
-    side prefix: Sideboard
+    side prefix: Sideboard:
     """
-
-    # https://tappedout.net/mtg-decks/boros-heroic-pioneer-preliminary-feb-27-2023-2/?fmt=txt
 
     tappedout_target_url = url + "?fmt=txt" if "?fmt=txt" not in url else url
     decklist = get_html_document(tappedout_target_url)  # plaintext download

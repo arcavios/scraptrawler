@@ -24,7 +24,7 @@ def mtg_top8_url() -> str:
 
 @pytest.fixture
 def tappedout_url() -> str:
-    return "https://tappedout.net/mtg-decks/boros-heroic-pioneer-preliminary-feb-27-2023-2/"
+    return "https://tappedout.net/mtg-decks/boros-heroic-pioneer-preliminary-feb-27-2023-2"
 
 
 # endregion
